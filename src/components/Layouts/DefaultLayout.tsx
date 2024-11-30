@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { redirect } from "next/navigation";
 
 export default function DefaultLayout({
   children,
@@ -9,6 +10,13 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    if (!localStorage.getItem("isLoggedIn")) {
+      setIsLoggedIn(false);
+      redirect(`/auth/signin`);
+    }
+  });
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
