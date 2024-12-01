@@ -1,18 +1,45 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-
-export const metadata: Metadata = {
-  title: "Next.js SignUp Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js SignUp Page TailAdmin Dashboard Template",
-  // other metadata
-};
+import { useCreateUser } from "@/useCases/useCreateUser";
+import { toast } from "react-toastify";
 
 const SignUp: React.FC = () => {
+  const { createUser, isLoading, error } = useCreateUser();
+  const [isCreated, setIsCreated] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      alert("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    try {
+      await createUser({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+      toast.success("Votre compte a été créé avec succès !");
+    } catch (err) {
+      toast.error("Email déjà utilisé !");
+      console.error("Erreur lors de la création de l'utilisateur :", error);
+    }
+  };
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -174,7 +201,7 @@ const SignUp: React.FC = () => {
                 S'inscrire à la plateforme E-Taxi
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Nom
@@ -182,7 +209,10 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="text"
+                      name="name"
                       placeholder="Entrer votre nom complet"
+                      value={form.name}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -217,6 +247,9 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
                       placeholder="Entrer votre adresse email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -248,6 +281,9 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      name="password"
+                      value={form.password}
+                      onChange={handleChange}
                       placeholder="Entrer votre mot de passe"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -283,7 +319,10 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      name="confirmPassword"
                       placeholder="Confirmer votre mot de passe"
+                      value={form.confirmPassword}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -312,11 +351,13 @@ const SignUp: React.FC = () => {
                 </div>
 
                 <div className="mb-5">
-                  <input
+                  <button
                     type="submit"
-                    value="S'inscrire"
+                    disabled={isLoading}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
+                  >
+                    {isLoading ? "Chargement..." : "S'inscrire"}
+                  </button>
                 </div>
 
                 <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
