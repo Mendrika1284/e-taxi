@@ -1,16 +1,25 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-
-export const metadata: Metadata = {
-  title: "Next.js SignIn Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
-};
+import { useLogin } from "@/useCases/useLogin";
 
 const SignIn: React.FC = () => {
+  const { login, isLoading, error } = useLogin();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await login(form);
+  };
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -173,7 +182,7 @@ const SignIn: React.FC = () => {
                 Se connecter à la plateforme E-Taxi
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
@@ -181,6 +190,9 @@ const SignIn: React.FC = () => {
                   <div className="relative">
                     <input
                       type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
                       placeholder="Votre email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -213,6 +225,9 @@ const SignIn: React.FC = () => {
                     <input
                       type="password"
                       placeholder="********"
+                      name="password"
+                      value={form.password}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -241,11 +256,14 @@ const SignIn: React.FC = () => {
                 </div>
 
                 <div className="mb-5">
-                  <input
+                  <button
                     type="submit"
                     value="Se connecter"
+                    disabled={isLoading}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
+                  >
+                    {isLoading ? "Connexion en cours..." : "Se connecter"}
+                  </button>
                 </div>
 
                 <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">

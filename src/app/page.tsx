@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export const metadata: Metadata = {
   title: "E-TAXI",
@@ -12,9 +13,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <DefaultLayout>
-        <ECommerce />
-      </DefaultLayout>
+      <ProtectedRoute>
+        <DefaultLayout>
+          <ECommerce />
+        </DefaultLayout>
+      </ProtectedRoute>
     </>
   );
 }

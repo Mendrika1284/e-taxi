@@ -10,13 +10,6 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    if (!localStorage.getItem("isLoggedIn")) {
-      setIsLoggedIn(false);
-      redirect(`/auth/signin`);
-    }
-  });
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
