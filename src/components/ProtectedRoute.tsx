@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { LoadingPage } from "./LoadingPage";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -24,7 +25,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }, [router]);
 
   if (isAuthenticated === null) {
-    return <div>Chargement...</div>;
+    return (
+      <div>
+        <LoadingPage />
+      </div>
+    );
   }
 
   return <>{isAuthenticated && children}</>;
