@@ -1,43 +1,45 @@
-# TailAdmin Next.js - Free Next.js Tailwind Admin Dashboard Template
 
-TailAdmin is a free and open-source admin dashboard template built on **Next.js and Tailwind CSS** providing developers with everything they need to create a feature-rich and data-driven: back-end, dashboard, or admin panel solution for any sort of web project.
+# e-taxi (Web)
 
-[![tailwind nextjs admin template](https://github.com/TailAdmin/free-nextjs-admin-dashboard/blob/main/tailadmin-nextjs.jpg)](https://nextjs-demo.tailadmin.com/)
+## Présentation
+Ce projet est une application web de gestion de taxis, construite avec Next.js, React, TypeScript et Tailwind CSS. Elle propose une interface moderne pour la gestion des utilisateurs, des courses, des paiements, des profils, des tableaux de bord analytiques, etc.
 
-With TailAdmin Next.js, you get access to all the necessary dashboard UI components, elements, and pages required to build a high-quality and complete dashboard or admin panel. Whether you're building a dashboard or admin panel for a complex web application or a simple website. 
+## Fonctionnalités principales
+- Authentification et gestion des utilisateurs
+- Visualisation des courses et du calendrier
+- Statistiques et graphiques dynamiques
+- Gestion des profils, paramètres, et tableaux
+- Interface responsive et moderne
 
-TailAdmin utilizes the powerful features of **Next.js 14** and common features of Next.js such as server-side rendering (SSR), static site generation (SSG), and seamless API route integration. Combined with the advancements of **React 18** and the robustness of **TypeScript**, TailAdmin is the perfect solution to help get your project up and running quickly.
+## Structure du projet
+- `/src/app` : Pages principales (dashboard, auth, calendrier, etc.)
+- `/src/components` : Composants UI réutilisables (tableaux, cartes, formulaires, etc.)
+- `/src/services` : Gestion des appels API
+- `/src/hooks` : Hooks personnalisés
+- `/public` : Images et assets statiques
+- `/src/css` : Fichiers de styles
 
-### [✨ Visit Website](https://tailadmin.com/)
-### [🚀 PRO Demo](https://nextjs-demo.tailadmin.com/)
-### [🚀 FREE Demo](https://nextjs-free-demo.tailadmin.com/)
+## Stack technique
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- Axios
 
-### TailAdmin Next.js PRO vs TailAdmin Next.js FREE Comparison 📊
+## Lancer le projet
+```bash
+npm install
+npm run dev
+```
 
-#### [TailAdmin Next.js PRO](https://nextjs-demo.tailadmin.com/)
-- 5 Unique Dashboards: Analytics, Ecommerce, Marketing, and CRM (More will be added)
-- 150+ Dashboard UI Components
-- 200+ Total UI Elements
-- 45+ HTML Files
-- All Essential Elements and Files
-- Full Figma Design Source - As Shown on Demo
-___
+## Docker
+Voir le fichier `Dockerfile` pour l'image, et `docker-compose.yml` à la racine pour l'orchestration multi-services.
 
-#### [TailAdmin Next.js FREE](https://free-nextjs-demo.tailadmin.com/)
-- 1 Unique Dashboard
-- 30+ Dashboard UI Components
-- 50+ Total UI Elements 
-- 10+ HTML Files
-- TypeScript Support
-- Basic UI Kit Elements and Files
-- Figma Design Source - Free Sample
-___
+## Contexte
+Ce projet fait partie d'un ensemble (web, mobile, backend) pour la gestion complète d'une flotte de taxis.
 
-### [⬇️ Download Now](https://tailadmin.com/download)
-
-### [⚡ Get PRO Version](https://tailadmin.com/pricing)
-
-### [📄 Documentation/Installation](https://tailadmin.com/docs)
+---
+**Auteur : RAKOTONIRINA Mendrika Itokiana**
 
 ### [🖌️ TailAdmin Figma Free Sample](https://www.figma.com/community/file/1214477970819985778)
 
